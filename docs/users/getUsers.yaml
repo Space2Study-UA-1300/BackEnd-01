@@ -1,0 +1,91 @@
+paths:
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get list of users
+      description: Retrieve list of users based on query params
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: email
+          description: User's email
+          schema:
+            type: string
+        - in: query
+          name: isEmailConfirmed
+          description: Information about email confirmation
+          schema:
+            type: boolean
+        - in: query
+          name: isFirstLogin
+          description: Information if user sign in first time
+          schema:
+            type: boolean
+        - in: query
+          name: lastLogin
+          description: User's last login
+          schema:
+            type: string
+            properties:
+              from: string
+              to: string
+        - in: query
+          name: limit
+          description: Number of returned users in single response
+          schema:
+            type: integer
+        - in: query
+          name: name
+          description: User's full name splitted by whitespace
+          schema:
+            type: string
+        - in: query
+          name: role
+          description: User's role
+          schema:
+            type: string
+            enum: ['student', 'tutor', 'admin', 'superadmin']
+        - in: query
+          name: skip
+          description: Number of skipped users in response from the beginning
+          schema:
+            type: integer
+        - in: query
+          name: sort
+          description: Fields and order of sorting
+          schema:
+            type: string
+            properties:
+              orderBy:
+                type: string
+              order:
+                type: string
+                enum: ['asc', 'desc']
+        - in: query
+          name: status
+          description: Number of skipped users in response from the beginning
+          schema:
+            type: array
+            items:
+              type: string
+            default:
+              - active
+              - blocked
+      responses:
+        200:
+          description: Users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      $ref: '#/components/schemas/user'

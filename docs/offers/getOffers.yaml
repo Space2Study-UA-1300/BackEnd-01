@@ -1,0 +1,32 @@
+paths:
+  /offers:
+    get:
+      tags:
+        - Offers
+      summary: Get offers
+      description: Retrieve list of users based on query params
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/components/parameters/authorRole'
+        - $ref: '#/components/parameters/price'
+        - $ref: '#/components/parameters/proficiencyLevel'
+        - $ref: '#/components/parameters/rating'
+        - $ref: '#/components/parameters/language'
+        - $ref: '#/components/parameters/search'
+        - $ref: '#/components/parameters/languages'
+        - $ref: '#/components/parameters/nativeLanguage'
+        - $ref: '#/components/parameters/excludedOfferId'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/status'
+        - $ref: '#/components/parameters/skip'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        200:
+          description: Users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/offerResponse'

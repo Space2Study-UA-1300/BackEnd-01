@@ -1,0 +1,107 @@
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 67895f292712e58b224acb8c
+        role:
+          type: string
+          enum: [student, tutor]
+          required: true
+        firstName:
+          type: string
+          example: Olha
+          required: true
+        lastName:
+          type: string
+          example: Shevchenko
+          required: true
+        email:
+          type: string
+          example: olha.fox@gmail.com
+          required: true
+        address:
+          type: object
+          properties:
+            country:
+              type: string
+              example: Ukraine
+            city:
+              type: string
+              example: Kyiv
+        photo:
+          type: string
+        professionalSummary:
+          type: string
+          example: Dummy summary text
+        createdAt:
+          type: string
+          example: '2025-01-16T19:34:01.954Z'
+        updatedAt:
+          type: string
+          example: '2025-01-16T19:34:01.954Z'
+        totalReviews:
+          type: object
+          properties:
+            student:
+              type: integer
+              example: 0
+            tutor:
+              type: integer
+              example: 0
+        mainSubjects:
+          type: object
+          properties:
+            student:
+              type: array
+              example: []
+            tutor:
+              type: array
+              example: []
+        averageRating:
+          type: object
+          properties:
+            student:
+              type: integer
+              example: 0
+            tutor:
+              type: integer
+              example: 0
+        nativeLanguage:
+          type: string
+          enum: ['English', 'Ukrainian', 'Polish', 'German', 'French', 'Spanish', 'Arabic']
+          example: Ukrainian
+        lastLogin:
+          type: string
+          default: null
+          example: '2025-01-16T19:34:01.954Z'
+        status:
+          type: object
+          properties:
+            student:
+              type: string
+              enum: ['active', 'blocked']
+              example: active
+            tutor:
+              type: string
+              enum: ['active', 'blocked']
+              example: active
+            admin:
+              type: string
+              enum: ['active', 'blocked']
+              example: active
+    userByIdExtended:
+      type: object
+      properties:
+        lastLoginAs:
+          type: string
+          enum: [student, tutor, admin]
+          example: student
+        isEmailConfirmed:
+          type: boolean
+          example: true
+        isFirstLogin:
+          type: boolean
+          example: false

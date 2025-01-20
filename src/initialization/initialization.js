@@ -1,6 +1,35 @@
 const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUI = require('swagger-ui-express')
+const {
+  config: { SERVER_URL }
+} = require('../configs/config')
+
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Space2Study API',
+      version: '',
+      description: 'API documentation for Space2Study'
+    },
+    servers: [
+      {
+        url: SERVER_URL
+      }
+    ],
+    components: {
+      // securitySchemes: {
+      //   //cookieAuth or any other security schema
+      // }
+    }
+  },
+  apis: ['./docs/**/*.yaml']
+}
+
+const swaggerSettings = swaggerJsDoc(swaggerOptions)
 
 const {
   config: { CLIENT_URL }
@@ -21,6 +50,8 @@ const initialization = (app) => {
       allowedHeaders: 'Content-Type, Authorization'
     })
   )
+
+  app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSettings))
 
   app.use('/', router)
 

@@ -1,0 +1,25 @@
+paths:
+  /resources-categories/:
+    post:
+      tags:
+        - Resources&Categories
+      summary: Get resources categories names
+      description: Retrieve list of resources categories names based on query params
+      produces:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 'Science'
+      responses:
+        201:
+          description: Resource category created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resourcesCategoriesResponse'
