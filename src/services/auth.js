@@ -31,18 +31,6 @@ const authService = {
     }
   },
 
-  googleAuth: async (idToken) => {
-    const client = new OAuth2Client(clientId)
-    const ticket = await client.verifyIdToken({
-      idToken,
-      audience: clientId
-    })
-    const payload = ticket.getPayload()
-    const isFromGoogle = true
-
-    return await module.exports.login(payload.email, payload.sub, { isFromGoogle })
-  },
-
   login: async (email, password, isFromGoogle) => {
     const user = await getUserByEmail(email)
 
@@ -72,6 +60,28 @@ const authService = {
     await privateUpdateUser(_id, { lastLogin: new Date() })
 
     return tokens
+  },
+
+  googleAuth: async (idToken) => {
+    const client = new OAuth2Client(clientId)
+
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: clientId
+    })
+    const payload = ticket.getPayload()
+
+    const user = await getUserByEmail(payload.email)
+
+    if (!user) {
+      const isEmailConfirmed = true
+
+      await createUser(payload.given_name, payload.family_name, payload.email, payload.sub, isEmailConfirmed)
+    }
+
+    const isFromGoogle = true
+
+    return module.exports.login(payload.email, payload.sub, { isFromGoogle })
   },
 
   logout: async (refreshToken) => {
