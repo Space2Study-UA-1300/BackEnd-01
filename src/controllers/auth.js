@@ -37,6 +37,20 @@ const login = async (req, res) => {
   res.status(200).json(tokens)
 }
 
+const authGoogle = async (req, res) => {
+  const { token, role } = req.body
+  const lang = req.lang
+
+  const tokens = await authService.googleAuth(token.credential, role, lang)
+
+  res.cookie(ACCESS_TOKEN, tokens.accessToken, COOKIE_OPTIONS)
+  res.cookie(REFRESH_TOKEN, tokens.refreshToken, COOKIE_OPTIONS)
+
+  delete tokens.refreshToken
+
+  res.status(200).json(tokens)
+}
+
 const logout = async (req, res) => {
   const { refreshToken } = req.cookies
 
@@ -89,6 +103,7 @@ const updatePassword = async (req, res) => {
 module.exports = {
   signup,
   login,
+  authGoogle,
   logout,
   refreshAccessToken,
   sendResetPasswordEmail,
