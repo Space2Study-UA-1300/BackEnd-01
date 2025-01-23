@@ -1,0 +1,19 @@
+components:
+  schemas:
+    emails:
+      required: true
+      type: array
+      items:
+        type: string
+        example: 'test@test.test'
+    invitations:
+      type: array
+      items:
+        type: object
+        properties:
+          email:
+            type: string
+            example: 'test@test.test'
+          dateOfInvitation:
+            type: string
+            example: '2025-01-16T19:34:01.954Z'

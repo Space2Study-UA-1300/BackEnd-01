@@ -1,0 +1,24 @@
+paths:
+  /questions/:questionId:
+    get:
+      tags:
+        - Questions
+      summary: Get question by id
+      description: Get question by the unique id
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the question.
+          schema:
+            type: string
+            example: 64b78c33f1e3df00123abcd6
+      responses:
+        200:
+          description: Resources categories response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionResponse'

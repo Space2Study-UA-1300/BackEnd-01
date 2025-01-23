@@ -1,0 +1,23 @@
+paths:
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: User log out
+      description: Logs out user
+      parameters:
+        - in: cookie
+          name: refreshToken
+          schema:
+            type: string
+            description: The refresh token stored in cookies.
+            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODdhNTg5YTEwOTgxMGE5Y2JhYjEzYyIsImlzRmlyc3RMb2dpbiI6ZmFsc2UsImlhdCI6MTczNzA0ODQwMCwiZXhwIjoxNzM3MDUyMDAwfQ.b8vhLauo0oR6n2fhxj-dIQFSa9LyBogaEE7IMxXbefj
+      responses:
+        204:
+          description: Logged out. No content returned.
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BAD_REFRESH_TOKEN'

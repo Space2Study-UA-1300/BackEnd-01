@@ -1,0 +1,24 @@
+paths:
+  /offers/:id:
+    get:
+      tags:
+        - Offers
+      summary: Get offer by id
+      description: Get offer by unique id
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the offer.
+          schema:
+            type: string
+            example: 64b78c33f1e3df00123abcd9
+      responses:
+        200:
+          description: Returned offer object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offerByIdExtendedResponse'

@@ -1,0 +1,67 @@
+paths:
+  /users/:id/change-status:
+    patch:
+      tags:
+        - Users
+      summary: Update user information
+      description: Update user data by the given ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the user.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                student:
+                  type: string
+                  description: Student's status
+                  example: active
+                tutor:
+                  type: string
+                  description: Tutor's status
+                  example: active
+                admin:
+                  type: string
+                  description: Admin's status
+                  example: active
+      security:
+        - bearerAuth: [] # Assuming authentication is required
+      responses:
+        204:
+          description: Statuses updated successfully. No content is returned.
+        400:
+          description: Bad request (e.g., invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/BAD_REQUEST'
+        403:
+          description: Forbidden. Only users with admin role allowed to make this action.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/FORBIDDEN'
+        404:
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                schema:
+                  $ref: '#/components/NOT_FOUND'
+        500:
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'An unexpected error occurred.'

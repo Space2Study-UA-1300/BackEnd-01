@@ -1,0 +1,18 @@
+paths:
+  /offers/:id:
+    delete:
+      tags:
+        - Offers
+      summary: Delete offer by id
+      description: Delete offer by unique id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the offer.
+          schema:
+            type: string
+            example: 64b78c33f1e3df00123abcd9
+      responses:
+        204:
+          description: Offer updated successfully. No response returned.

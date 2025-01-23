@@ -1,0 +1,28 @@
+components:
+  parameters:
+    name:
+      in: query
+      name: name
+      description: A search term for categories
+      schema:
+        type: string
+        example: category
+  schemas:
+    resourcesCategoriesResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+          min: 1
+          max: 50
+          example: 'Science'
+        author:
+          type: string
+          required: true
+          example: 67895f292712e58b224acb8c
+    resourcesCategoriesNamesResponse:
+      type: array
+      example: [Science, Music]
+      items:
+        type: string

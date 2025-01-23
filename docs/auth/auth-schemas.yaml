@@ -1,0 +1,56 @@
+components:
+  schemas:
+    signup:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [student, tutor]
+          example: student
+        firstName:
+          type: string
+          example: Olha
+        lastName:
+          type: string
+          example: Shevchenko
+        email:
+          type: string
+          example: test@test.test
+        password:
+          type: string
+          example: P@$$w0rd
+    login:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@test.test
+        password:
+          type: string
+          example: P@$$w0rd
+    signupResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+          example: 8a9d9awd9a07g793llji1
+        userEmail:
+          type: string
+          example: test@test.test
+    accessToken:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ODdhNTg5YTEwOTgxMGE5Y2JhYjEzYyIsImlzRmlyc3RMb2dpbiI6ZmFsc2UsImlhdCI6MTczNzA0ODQwMCwiZXhwIjoxNzM3MDUyMDAwfQ.b8vhLauo0oR6n2fhxj-dIQFSa9LyBogaEE7IMxXbefj
+    forgotPassword:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test@test.test
+    resetPassword:
+      type: object
+      properties:
+        password:
+          type: string

@@ -1,0 +1,30 @@
+paths:
+  /questions:
+    get:
+      tags:
+        - Questions
+      summary: Get questions
+      description: Retrieve list of questions based on query params
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/components/parameters/title'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/skip'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/categories'
+      responses:
+        200:
+          description: Questions response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/questionResponse'
+                  count:
+                    type: integer
+                    example: 1

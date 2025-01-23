@@ -1,0 +1,18 @@
+paths:
+  /questions/:id:
+    delete:
+      tags:
+        - Questions
+      summary: Delete question
+      description: Delete question by id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the question.
+          schema:
+            type: string
+            example: 64b78c33f1e3df00123abcd9
+      responses:
+        204:
+          description: Questions deleted. No response returned.
