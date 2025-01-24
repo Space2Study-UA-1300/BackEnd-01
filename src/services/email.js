@@ -52,6 +52,11 @@ const confirmEmailService = async (token) => {
   }
 }
 
-module.exports = emailService
+// module.exports = emailService
 
-module.exports.confirmEmailService = confirmEmailService
+// module.exports.confirmEmailService = confirmEmailService
+
+module.exports = {
+  emailService,
+  confirmEmailService
+}
