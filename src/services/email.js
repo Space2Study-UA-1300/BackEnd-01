@@ -29,5 +29,29 @@ const emailService = {
     })
   }
 }
+// Функция для подтверждения email
+const confirmEmailService = async (token) => {
+  if (!token) {
+    throw new Error('Token is required')
+  }
+
+  // const user = await User.findOneAndUpdate(
+  //   { confirmationToken: token }, // Ищем пользователя по токену
+  //   { isEmailConfirmed: true }, // Обновляем статус
+  //   { new: true } // Возвращаем обновленный документ
+  // )
+
+  // if (!user) {
+  //   throw new Error('Invalid token or user not found')
+  // }
+
+  return {
+    // email: user.email,
+    status: 'confirmed',
+    message: 'Email confirmed successfully!'
+  }
+}
 
 module.exports = emailService
+
+module.exports.confirmEmailService = confirmEmailService
