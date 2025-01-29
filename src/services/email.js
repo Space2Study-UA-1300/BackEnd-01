@@ -1,9 +1,13 @@
+const path = require('path')
+
 const EmailTemplates = require('email-templates')
 const { sendMail } = require('~/utils/mailer')
 const { templateList } = require('~/emails')
 const {
   gmailCredentials: { user }
 } = require('~/configs/config')
+console.log('User (from address):', user)
+
 const { createError } = require('~/utils/errorsHelper')
 const { TEMPLATE_NOT_FOUND } = require('~/consts/errors')
 
@@ -19,13 +23,22 @@ const emailService = {
 
     const langTemplate = templateToSend[language]
 
-    const html = await emailTemplates.render(langTemplate.template, text)
+    console.log('Path to template:', langTemplate.template)
+    console.log('check')
+
+    const templatePath = path.join(__dirname, '../emails', langTemplate.template)
+    console.log('Resolved template path:', templatePath)
+
+    const html = await emailTemplates.render(templatePath, text)
+
+    console.log('html')
+    console.log(html)
 
     await sendMail({
       from: `Space2Study <${user}>`,
       to: email,
       subject: langTemplate.subject,
-      html
+      html: html
     })
   }
 }
