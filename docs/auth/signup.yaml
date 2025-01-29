@@ -1,0 +1,35 @@
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: User registration
+      description: Creates a new user, sends an email to the user and returns user ID and email.
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        description: Provide required data to create a user account.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signup'
+            # example:
+            #   role: student
+            #   firstName: John
+            #   lastName: Doe
+            #   email: johndoe@gmail.com
+            #   password: qwer1234
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signupResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EMAIL_NOT_SENT'

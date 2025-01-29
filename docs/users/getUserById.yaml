@@ -1,0 +1,54 @@
+paths:
+  /users/:id:
+    get:
+      tags:
+        - Users
+      summary: Get a user by ID
+      description: Retrieve a specific user based on their unique identifier.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the user.
+          schema:
+            type: string
+        - in: query
+          name: role
+          description: Role of the user (optional filter).
+          schema:
+            type: string
+            enum: ['student', 'tutor', 'admin', 'superadmin']
+            example: 'student'
+      responses:
+        200:
+          description: User details
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/user'
+                  - $ref: '#/components/schemas/userByIdExtended'
+        400:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BAD_REQUEST'
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  code:
+                    type: string
+                    example: USER_NOT_FOUND
+                  message:
+                    type: string
+                    example: 'User not found'

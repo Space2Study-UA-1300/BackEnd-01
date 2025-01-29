@@ -1,0 +1,29 @@
+paths:
+  /resources-categories:
+    get:
+      tags:
+        - Resources&Categories
+      summary: Get resources categories
+      description: Retrieve list of resources categories based on query params
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/components/parameters/name'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/skip'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        200:
+          description: Resources categories response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/resourcesCategoriesResponse'
+                  count:
+                    type: integer
+                    example: 1

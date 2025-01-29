@@ -1,0 +1,31 @@
+paths:
+  /send-email:
+    post:
+      tags:
+        - Emails
+      summary: Send email
+      description: Send email using data from payload
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        description: Provide required data to send an email
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/email'
+      responses:
+        204:
+          description: Email sent. No content is returned.
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BAD_REQUEST'
+        404:
+          description: Template not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TEMPLATE_NOT_FOUND'

@@ -1,0 +1,17 @@
+components:
+  schemas:
+    email:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+          example: test@test.test
+        subject:
+          required: true
+          type: string
+          example: Dummy email subject
+        text:
+          required: true
+          type: string
+          example: Dummy email content

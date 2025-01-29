@@ -1,0 +1,36 @@
+paths:
+  /admin-invitations:
+    get:
+      tags:
+        - Admin
+      summary: Get invitation emails list
+      description: Get invitation emails list
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: List of emails
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/invitations'
+    post:
+      tags:
+        - Admin
+      summary: Send invitation emails
+      description: Send invitation emails to the provided set of emails
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: List of email's for sending invitations
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/emails'
+      responses:
+        201:
+          description: List of emails
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/invitations'

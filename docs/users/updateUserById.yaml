@@ -1,0 +1,93 @@
+paths:
+  /users/:id:
+    patch:
+      tags:
+        - Users
+      summary: Update user information
+      description: Update user data by the given ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the user.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                photo:
+                  type: string
+                  description: User's updated photo.
+                firstName:
+                  type: string
+                  description: User's updated first name.
+                  example: 'Olha'
+                lastName:
+                  type: string
+                  description: User's updated first name.
+                  example: 'Shevchenko'
+                address:
+                  type: object
+                  properties:
+                    country:
+                      type: string
+                      description: User's updated country.
+                      exmaple: Ukraine
+                    city:
+                      type: string
+                      description: User's updated city.
+                      exmaple: Kyiv
+                professionalSummary:
+                  type: string
+                  description: User's updated professional summary
+                  example: Dummy professional summary text
+                mainSubjects:
+                  type: object
+                nativeLanguage:
+                  type: string
+                  description: User's updated native language
+                  example: Ukrainian
+                appLanguage:
+                  type: string
+                  description: User's updated application language
+                  example: ua
+                  enum: [ua, en]
+                FAQ:
+                  type: object
+      security:
+        - bearerAuth: [] # Assuming authentication is required
+      responses:
+        204:
+          description: User updated successfully. No content is returned.
+        400:
+          description: Bad request (e.g., invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BAD_REQUEST'
+        403:
+          description: Forbidden. User cannot update someone else's data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FORBIDDEN'
+        404:
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NOT_FOUND'
+        500:
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'An unexpected error occurred.'

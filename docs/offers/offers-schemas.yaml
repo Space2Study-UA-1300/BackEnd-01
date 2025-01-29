@@ -1,0 +1,298 @@
+components:
+  parameters:
+    authorRole:
+      in: query
+      name: authorRole
+      description: Author's role
+      schema:
+        type: string
+        enum: [student, tutor]
+        example: student
+    price:
+      in: query
+      name: price
+      description: 'An array with two values: minimum price and maximum price'
+      schema:
+        type: array
+        items:
+          type: integer
+      style: form
+      explode: false
+      example: [100, 500]
+    proficiencyLevel:
+      name: proficiencyLevel
+      in: query
+      description: An array of proficiency levels to filter by.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum: ['Beginner', 'Intermediate', 'Advanced', 'Test Preparation', 'Professional', 'Specialized']
+        example: ['beginner', 'intermediate']
+    rating:
+      name: rating
+      in: query
+      description: Minimum rating to filter authors by.
+      required: false
+      schema:
+        type: integer
+        example: 4
+    language:
+      name: language
+      in: query
+      description: A language to filter by (supports regex).
+      required: false
+      schema:
+        type: string
+        enum: ['English', 'Ukrainian', 'Polish', 'German', 'French', 'Spanish', 'Arabic']
+        example: English
+    search:
+      name: search
+      in: query
+      description: A search term for title, author, or subject.
+      required: false
+      schema:
+        type: string
+        example: math
+    languages:
+      name: languages
+      in: query
+      description: A list of languages to filter by.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum: ['English', 'Ukrainian', 'Polish', 'German', 'French', 'Spanish', 'Arabic']
+        example: ['English', 'Spanish']
+    nativeLanguage:
+      name: nativeLanguage
+      in: query
+      description: The native language of the author (supports regex).
+      required: false
+      schema:
+        type: string
+        example: French
+    excludedOfferId:
+      name: excludedOfferId
+      in: query
+      description: The ID of an offer to exclude from the results.
+      required: false
+      schema:
+        type: string
+        example: 63e6f9d8ad7cde0012e8b2f5
+    sort:
+      name: sort
+      in: query
+      description: Sorting field and order. Can be a string or JSON object.
+      required: false
+      schema:
+        oneOf:
+          - type: string
+            example: priceAsc
+          - type: object
+            properties:
+              order:
+                type: string
+                enum: [asc, desc]
+                example: desc
+              orderBy:
+                type: string
+                example: createdAt
+    status:
+      name: status
+      in: query
+      description: The status of the offer.
+      required: false
+      schema:
+        type: string
+        enum: [active, draft, closed]
+        example: active
+    skip:
+      name: skip
+      in: query
+      description: Number of items to skip (used for pagination).
+      required: false
+      schema:
+        type: integer
+        example: 10
+    limit:
+      name: limit
+      in: query
+      description: Number of items to return per page (used for pagination).
+      required: false
+      schema:
+        type: integer
+        example: 5
+  schemas:
+    offerResponse:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Unique identifier for the offer
+          example: 64b78c33f1e3df00123abcd9
+        price:
+          type: number
+          description: The price of the offer
+          example: 100
+        proficiencyLevel:
+          type: string
+          description: The required proficiency level for the offer
+          enum: ['Beginner', 'Intermediate', 'Advanced', 'Test Preparation', 'Professional', 'Specialized']
+          example: Intermediate
+        title:
+          type: string
+          description: Title of the offer
+          example: English Tutoring for Beginners
+        description:
+          type: string
+          description: Detailed description of the offer
+          example: A comprehensive English course designed for beginners.
+        languages:
+          type: array
+          description: The spoken languages for this offer
+          items:
+            type: string
+            enum: ['English', 'Ukrainian', 'Polish', 'German', 'French', 'Spanish', 'Arabic']
+          example: [English, Ukrainian]
+        authorRole:
+          type: string
+          description: Role of the author
+          enum: [student, tutor]
+          example: tutor
+        author:
+          type: string
+          description: The ID of the user who created the offer
+          example: 64a67f22d2b5e100123abcd8
+        status:
+          type: string
+          description: The current status of the offer
+          enum: [active, draft, closed]
+          example: Active
+        FAQ:
+          type: array
+          description: List of frequently asked questions for the offer
+          items:
+            type: object
+            properties:
+              question:
+                type: string
+                description: A question related to the offer
+                example: What materials are provided?
+              answer:
+                type: string
+                description: The answer to the question
+                example: All course materials will be provided electronically.
+        createdAt:
+          type: string
+          format: date-time
+          description: When the offer was created
+          example: 2023-12-01T12:00:00Z
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the offer was last updated
+          example: 2023-12-15T15:30:00Z
+    offerByIdExtendedResponse:
+      allOf:
+        - $ref: '#/components/schemas/offerResponse'
+        - type: object
+          properties:
+            author:
+              type: object
+              example:
+                firstName: Olha
+                lastName: Shevchenko
+                totalReviews:
+                  student: 0
+                  tutor: 0
+                averageRating:
+                  student: 0
+                  tutor: 0
+                professionalSummary: Dummy summary text
+                photo: photo
+              properties:
+                firstName:
+                  type: string
+                  example: Olha
+                  required: true
+                lastName:
+                  type: string
+                  example: Shevchenko
+                  required: true
+                totalReviews:
+                  type: object
+                  properties:
+                    student:
+                      type: integer
+                      example: 0
+                    tutor:
+                      type: integer
+                      example: 0
+                averageRating:
+                  type: object
+                  properties:
+                    student:
+                      type: integer
+                      example: 0
+                    tutor:
+                      type: integer
+                      example: 0
+                photo:
+                  type: string
+                professionalSummary:
+                  type: string
+                  example: Dummy summary text
+    createOfferRequest:
+      type: object
+      properties:
+        price:
+          required: true
+          type: integer
+          exmaple: 100
+        proficiencyLevel:
+          required: true
+          type: string
+          enum: ['Beginner', 'Intermediate', 'Advanced', 'Test Preparation', 'Professional', 'Specialized']
+          example: Intermediate
+        title:
+          required: true
+          type: string
+          example: English Tutoring for Beginners
+        description:
+          required: true
+          type: string
+          example: A comprehensive English course designed for beginners
+        languages:
+          required: true
+          type: array
+          example: ['Ukrainian', 'English']
+          items:
+            type: string
+            enum: ['English', 'Ukrainian', 'Polish', 'German', 'French', 'Spanish', 'Arabic']
+        subject:
+          required: true
+          type: string
+          example: Offer subject
+        category:
+          required: true
+          type: string
+          example: Offer category
+        status:
+          required: true
+          type: string
+          enum: [active, draft, closed]
+          example: active
+        FAQ:
+          type: array
+          items:
+            type: object
+            properties:
+              question:
+                type: string
+                example: Some FAQ question
+              answer:
+                type: string
+                example: Some FAQ answer

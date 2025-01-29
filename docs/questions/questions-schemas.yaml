@@ -1,0 +1,95 @@
+components:
+  parameters:
+    title:
+      in: query
+      name: title
+      type: string
+      description: Search term for question title
+      example: Some text
+    categories:
+      in: query
+      name: categories
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: false
+      example: ['Science', 'Math']
+  schemas:
+    questionRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Question title
+          required: true
+        text:
+          type: string
+          required: true
+          example: Question text
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: string
+                required: true
+                exmaple: Answer text
+              isCorrect:
+                type: boolean
+                default: false
+        type:
+          type: string
+          required: true
+          enum: ['multipleChoice', 'openAnswer', 'oneAnswer']
+          example: openAnswer
+        category:
+          type: string
+          default: null
+          example: '8a0ss2hka01lc9asz911zas'
+        author:
+          type: string
+          required: true
+          example: 67895f292712e58b224acb8c
+    questionResponse:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Question title
+          required: true
+        text:
+          type: string
+          required: true
+          example: Question text
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: string
+                required: true
+                exmaple: Answer text
+              isCorrect:
+                type: boolean
+                default: false
+        type:
+          type: string
+          required: true
+          enum: ['multipleChoice', 'openAnswer', 'oneAnswer']
+          example: openAnswer
+        category:
+          type: string
+          default: null
+          example: '8a0ss2hka01lc9asz911zas'
+        author:
+          type: string
+          required: true
+          example: 67895f292712e58b224acb8c
+        resourceType:
+          type: string
+          enum: ['lessons', 'attachments', 'questions', 'quizzes']
+          example: lessons

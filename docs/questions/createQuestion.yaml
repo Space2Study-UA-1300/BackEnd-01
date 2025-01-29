@@ -1,0 +1,21 @@
+paths:
+  /questions:
+    post:
+      tags:
+        - Questions
+      summary: Create question
+      description: Create new question based on data passed in body
+      produces:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/questionRequest'
+      responses:
+        201:
+          description: Questions response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/questionResponse'

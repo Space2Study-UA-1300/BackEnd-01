@@ -1,0 +1,32 @@
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: User sign in
+      description: Logs in user and returns access token
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        description: Provide required data to log in a user.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login'
+      responses:
+        200:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accessToken'
+        401:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/EMAIL_NOT_CONFIRMED'
+                  - $ref: '#/components/schemas/USER_NOT_FOUND'
+                  - $ref: '#/components/schemas/INCORRECT_CREDENTIALS'

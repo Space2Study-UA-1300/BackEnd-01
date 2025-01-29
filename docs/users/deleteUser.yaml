@@ -1,0 +1,37 @@
+paths:
+  /users/:id:
+    delete:
+      tags:
+        - Users
+      summary: Delete user
+      description: Delete user by the given ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the user.
+          schema:
+            type: string
+      security:
+        - bearerAuth: [] # Assuming authentication is required
+      responses:
+        204:
+          description: User deleted successfully. No content is returned.
+        400:
+          description: Bad request (e.g., invalid input).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BAD_REQUEST'
+        403:
+          description: Forbidden. Only users with admin role allowed to make this action.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FORBIDDEN'
+        404:
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/USER_NOT_FOUND'
