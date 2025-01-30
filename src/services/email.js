@@ -1,3 +1,5 @@
+const path = require('path')
+
 const EmailTemplates = require('email-templates')
 const { sendMail } = require('~/utils/mailer')
 const { templateList } = require('~/emails')
@@ -18,8 +20,8 @@ const emailService = {
     }
 
     const langTemplate = templateToSend[language]
-
-    const html = await emailTemplates.render(langTemplate.template, text)
+    const templatePath = path.join(__dirname, '../emails', langTemplate.template)
+    const html = await emailTemplates.render(templatePath, text)
 
     await sendMail({
       from: `Space2Study <${user}>`,
