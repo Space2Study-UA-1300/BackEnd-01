@@ -1,6 +1,6 @@
 const { OAuth2Client } = require('google-auth-library')
 const tokenService = require('~/services/token')
-const emailService = require('~/services/email')
+const { emailService, confirmEmailService } = require('~/services/email')
 const { getUserByEmail, createUser, privateUpdateUser, getUserById } = require('~/services/user')
 const { createError } = require('~/utils/errorsHelper')
 const {
@@ -24,6 +24,12 @@ const authService = {
 
     const confirmToken = tokenService.generateConfirmToken({ id: user._id, role })
     await tokenService.saveToken(user._id, confirmToken, CONFIRM_TOKEN)
+
+    // test
+    console.log(emailService)
+    console.log(typeof emailService.sendEmail)
+    console.log(confirmEmailService)
+    //test
     await emailService.sendEmail(email, emailSubject.EMAIL_CONFIRMATION, language, { confirmToken, email, firstName })
     return {
       userId: user._id,

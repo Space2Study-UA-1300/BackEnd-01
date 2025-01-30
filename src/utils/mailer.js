@@ -12,7 +12,9 @@ const OAuth2 = google.auth.OAuth2
 const getAccessToken = async () => {
   try {
     const oAuth2Client = new OAuth2(clientId, clientSecret, redirectUri)
-
+    // test
+    console.log('refreshToken:--------', refreshToken)
+    //test
     oAuth2Client.setCredentials({ refresh_token: refreshToken })
     const accessToken = await oAuth2Client.getAccessToken()
 
@@ -36,7 +38,12 @@ const createTransport = async () => {
         clientSecret,
         refreshToken,
         accessToken
+      },
+      // test
+      tls: {
+        rejectUnauthorized: false // turn off checking SSL-certificate
       }
+      //test
     })
 
     return transporter
