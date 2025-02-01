@@ -1,4 +1,3 @@
-const { OAuth2Client } = require('google-auth-library')
 const tokenService = require('~/services/token')
 const emailService = require('~/services/email')
 const { getUserByEmail, createUser, privateUpdateUser, getUserById } = require('~/services/user')
@@ -14,13 +13,12 @@ const emailSubject = require('~/consts/emailSubject')
 const {
   tokenNames: { REFRESH_TOKEN, RESET_TOKEN, CONFIRM_TOKEN }
 } = require('~/consts/auth')
-const {
-  gmailCredentials: { clientId }
-} = require('~/configs/config')
-
+const bcrypt = require('bcryptjs')
 const authService = {
   signup: async (role, firstName, lastName, email, password, language) => {
-    const user = await createUser(role, firstName, lastName, email, password, language)
+    const saltRounds = 12
+    const hash = await bcrypt.hash(password, saltRounds)
+    const user = await createUser(role, firstName, lastName, email, hash, language)
 
     const confirmToken = tokenService.generateConfirmToken({ id: user._id, role })
     await tokenService.saveToken(user._id, confirmToken, CONFIRM_TOKEN)
@@ -35,10 +33,14 @@ const authService = {
     const user = await getUserByEmail(email)
 
     if (!user) {
-      throw createError(401, USER_NOT_FOUND)
+      throw createError(404, USER_NOT_FOUND)
     }
-
-    const checkedPassword = password === user.password || isFromGoogle
+    const doesPasswordMatch = async () => {
+      const match = await bcrypt.compare(password, user.password)
+      return match
+    }
+    
+    const checkedPassword = await doesPasswordMatch()
 
     if (!checkedPassword) {
       throw createError(401, INCORRECT_CREDENTIALS)
@@ -60,28 +62,6 @@ const authService = {
     await privateUpdateUser(_id, { lastLogin: new Date() })
 
     return tokens
-  },
-
-  googleAuth: async (idToken) => {
-    const client = new OAuth2Client(clientId)
-
-    const ticket = await client.verifyIdToken({
-      idToken,
-      audience: clientId
-    })
-    const payload = ticket.getPayload()
-
-    const user = await getUserByEmail(payload.email)
-
-    if (!user) {
-      const isEmailConfirmed = true
-
-      await createUser(payload.given_name, payload.family_name, payload.email, payload.sub, isEmailConfirmed)
-    }
-
-    const isFromGoogle = true
-
-    return module.exports.login(payload.email, payload.sub, { isFromGoogle })
   },
 
   logout: async (refreshToken) => {
