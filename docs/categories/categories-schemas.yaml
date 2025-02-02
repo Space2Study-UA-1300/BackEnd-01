@@ -1,0 +1,23 @@
+components:
+  schemas:
+    category:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Unique identifier for the category
+          example: 64b78c33f1e3df00123abcd9
+        name:
+          type: string
+          description: Category name
+          example: Music
+          required: true
+        appearance:
+          type: object
+          properties:
+            color:
+              type: string
+              default: '#66C42C'
+            icon:
+              type: string
+              default: 'assets/img/category/default-img.svg'

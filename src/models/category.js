@@ -10,10 +10,8 @@ const categorySchema = new Schema({
     unique: true
   },
   appearance: {
-    type: {
-      icon: { type: String, default: 'assets/img/categories/default-icon.svg' },
-      color: { type: String, default: '#66C42C' }
-    }
+    icon: { type: String, default: 'assets/img/categories/default-icon.svg' },
+    color: { type: String, default: '#66C42C' }
   }
 })
 
