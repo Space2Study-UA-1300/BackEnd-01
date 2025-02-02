@@ -1,6 +1,6 @@
 const tokenService = require('~/services/token')
 const emailService = require('~/services/email')
-const { getUserByEmail, createUser, privateUpdateUser, getUserById } = require('~/services/user')
+const { getUserByEmail, createUser, privateUpdateUser, getUserById, setConfirmTokenToTrue } = require('~/services/user')
 const { createError } = require('~/utils/errorsHelper')
 const {
   EMAIL_NOT_CONFIRMED,
@@ -68,6 +68,16 @@ const authService = {
     await tokenService.removeRefreshToken(refreshToken)
   },
 
+  checkConfirmToken: async(confirmToken) => {
+    const user = await tokenService.getUserIdByToken(confirmToken)
+    console.log('user by token' , user)
+    return user
+  },
+  setConfirmToken: async(confirmToken) => {
+    const set = await setConfirmTokenToTrue(confirmToken)
+    console.log('set ' , set)
+    return set
+  },
   refreshAccessToken: async (refreshToken) => {
     const tokenData = tokenService.validateRefreshToken(refreshToken)
     const tokenFromDB = await tokenService.findToken(refreshToken, REFRESH_TOKEN)
@@ -112,6 +122,7 @@ const authService = {
 
     await tokenService.removeResetToken(userId)
 
+    
     await emailService.sendEmail(email, emailSubject.SUCCESSFUL_PASSWORD_RESET, language, {
       firstName
     })

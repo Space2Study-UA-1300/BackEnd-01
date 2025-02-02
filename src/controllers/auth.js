@@ -18,8 +18,8 @@ const COOKIE_OPTIONS = {
 const signup = async (req, res) => {
   const { role, firstName, lastName, email, password } = req.body
   const lang = req.lang
-
   const userData = await authService.signup(role, firstName, lastName, email, password, lang)
+
 
   res.status(201).json(userData)
 }
@@ -81,6 +81,19 @@ const refreshAccessToken = async (req, res) => {
   res.status(200).json(tokens)
 }
 
+const confirmEmail = async (req, res) => {
+  const confirmToken = req.params.confirmToken
+  console.log(confirmToken)
+  const isUser = await authService.checkConfirmToken(confirmToken)
+  console.log('user ++' , isUser)
+  console.log(isUser.user.toString())
+  if (isUser) {
+    await authService.setConfirmToken(isUser.user.toString())
+  }
+  res.status(204).end()
+
+}
+
 const sendResetPasswordEmail = async (req, res) => {
   const { email } = req.body
   const lang = req.lang
@@ -107,5 +120,6 @@ module.exports = {
   logout,
   refreshAccessToken,
   sendResetPasswordEmail,
-  updatePassword
+  updatePassword,
+  confirmEmail
 }

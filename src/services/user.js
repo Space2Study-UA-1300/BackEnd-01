@@ -1,6 +1,7 @@
 const User = require('~/models/user')
 const { createError } = require('~/utils/errorsHelper')
-
+const mongoose = require('mongoose')
+const { ObjectId } = mongoose.Types
 const { DOCUMENT_NOT_FOUND, ALREADY_REGISTERED } = require('~/consts/errors')
 const filterAllowedFields = require('~/utils/filterAllowedFields')
 const { allowedUserFieldsForUpdate } = require('~/validation/services/user')
@@ -100,7 +101,16 @@ const userService = {
 
   deleteUser: async (id) => {
     await User.findByIdAndRemove(id).exec()
-  }
+  },
+  setConfirmTokenToTrue : async (id) => {
+    console.log(id)
+    const userId = ObjectId(id)
+    await User.findByIdAndUpdate(
+      userId, // This should now work properly
+      { isEmailConfirmed: true },
+      { new: true } // Ensures the updated document is returned
+    )
+  },
 }
 
 module.exports = userService
