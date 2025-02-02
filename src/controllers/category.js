@@ -1,4 +1,13 @@
 const categoryService = require('~/services/category')
+const categoriesAggregateOptions = require('~/utils/categories/categoriesAggregateOptions')
+
+const getCategories = async (req, res) => {
+  const pipeline = categoriesAggregateOptions(req.query)
+
+  const offers = await categoryService.getCategories(pipeline)
+
+  res.status(200).json(offers)
+}
 
 const createCategory = async (req, res) => {
   const data = req.body
@@ -9,5 +18,6 @@ const createCategory = async (req, res) => {
 }
 
 module.exports = {
+  getCategories,
   createCategory
 }

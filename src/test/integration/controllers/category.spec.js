@@ -68,14 +68,37 @@ describe('Category controller', () => {
     })
 
     it('should throw FORBIDDEN', async () => {
-      //   accessToken = await testUserAuthentication(app, { role: STUDENT })
-
       const response = await app
         .post(endpointUrl)
         .send(testCategoryData)
         .set('Cookie', [`accessToken=${studentAccessToken}`])
 
       expectError(403, FORBIDDEN, response)
+    })
+  })
+  describe(`GET ${endpointUrl}`, () => {
+    it('should get categories', async () => {
+      const response = await app.get(endpointUrl).set('Cookie', [`accessToken=${studentAccessToken}`])
+
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toMatchObject({
+        items: [
+          {
+            _id: expect.any(String),
+            appearance: {
+              color: '#66C42C',
+              icon: 'assets/img/categories/default-icon.svg'
+            }
+          }
+        ],
+        count: 1
+      })
+    })
+
+    it('should throw UNAUTHORIZED', async () => {
+      const response = await app.post(endpointUrl)
+
+      expectError(401, UNAUTHORIZED, response)
     })
   })
 })
