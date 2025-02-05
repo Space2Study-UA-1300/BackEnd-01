@@ -75,7 +75,6 @@ const authService = {
   },
   setConfirmToken: async(confirmToken) => {
     const set = await setConfirmTokenToTrue(confirmToken)
-    console.log('set ' , set)
     return set
   },
   refreshAccessToken: async (refreshToken) => {
