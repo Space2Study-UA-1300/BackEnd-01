@@ -52,4 +52,32 @@ components:
               default: '#66C42C'
             icon:
               type: string
-              default: 'assets/img/category/default-img.svg'
+              default: 'language'
+              enum:
+                [
+                  'audiotrack',
+                  'biotech',
+                  'brush',
+                  'language',
+                  'monitor',
+                  'palette',
+                  'payments',
+                  'science',
+                  'star',
+                  'tag',
+                  'troubleshoot'
+                ]
+        offers:
+          type: integer
+          default: 0
+    categoryNames:
+      type: array
+      items:
+        type: object
+        properties:
+          _id:
+            type: string
+            example: 64b78c33f1e3df00123abcd9
+          name:
+            type: string
+            example: Music

@@ -15,7 +15,7 @@ paths:
         - $ref: '#/components/parameters/limit'
       responses:
         200:
-          description: Users
+          description: Success
           content:
             application/json:
               schema:

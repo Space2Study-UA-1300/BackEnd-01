@@ -6,7 +6,7 @@ const {
   roles: { ADMIN }
 } = require('~/consts/auth')
 
-const endpointUrl = '/categories/'
+const endpointUrl = '/categories'
 
 const testCategoryData = {
   name: 'Music'
@@ -55,7 +55,7 @@ describe('Category controller', () => {
         _id: expect.any(String),
         appearance: {
           color: '#66C42C',
-          icon: 'assets/img/categories/default-icon.svg'
+          icon: 'language'
         },
         ...testCategoryData
       })
@@ -87,12 +87,60 @@ describe('Category controller', () => {
             _id: expect.any(String),
             appearance: {
               color: '#66C42C',
-              icon: 'assets/img/categories/default-icon.svg'
-            }
+              icon: 'language'
+            },
+            ...testCategoryData
           }
         ],
         count: 1
       })
+    })
+
+    it('should throw UNAUTHORIZED', async () => {
+      const response = await app.post(endpointUrl)
+
+      expectError(401, UNAUTHORIZED, response)
+    })
+  })
+
+  describe(`GET ${endpointUrl}/names`, () => {
+    it('should get category names', async () => {
+      const response = await app.get(`${endpointUrl}/names`).set('Cookie', [`accessToken=${studentAccessToken}`])
+
+      const id = response.body[0]._id
+
+      const response2 = await app.get(`${endpointUrl}/${id}`).set('Cookie', [`accessToken=${studentAccessToken}`])
+
+      expect(response2.statusCode).toBe(200)
+      expect(response2.body).toMatchObject({
+        _id: expect.any(String),
+        appearance: {
+          color: '#66C42C',
+          icon: 'language'
+        },
+        offers: 0,
+        ...testCategoryData
+      })
+    })
+
+    it('should throw UNAUTHORIZED', async () => {
+      const response = await app.post(endpointUrl)
+
+      expectError(401, UNAUTHORIZED, response)
+    })
+  })
+
+  describe(`GET ${endpointUrl}/:id`, () => {
+    it('should get category by id', async () => {
+      const response = await app.get(`${endpointUrl}/names`).set('Cookie', [`accessToken=${studentAccessToken}`])
+
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toEqual([
+        {
+          _id: expect.any(String),
+          ...testCategoryData
+        }
+      ])
     })
 
     it('should throw UNAUTHORIZED', async () => {

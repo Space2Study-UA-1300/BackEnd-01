@@ -6,6 +6,16 @@ const categoryService = {
     return response
   },
 
+  getCategoriesNames: async (pipeline) => {
+    const response = await Category.aggregate(pipeline)
+    return response
+  },
+
+  getCategoryById: async (id) => {
+    const category = await Category.findById(id).lean().exec()
+    return category
+  },
+
   createCategory: async (data) => {
     const { name, appearance } = data
 
