@@ -106,9 +106,9 @@ const userService = {
     console.log(id)
     const userId = ObjectId(id)
     await User.findByIdAndUpdate(
-      userId, // This should now work properly
+      userId,
       { isEmailConfirmed: true },
-      { new: true } // Ensures the updated document is returned
+      { new: true }
     )
   },
 }
