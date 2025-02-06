@@ -1,0 +1,36 @@
+paths:
+  /categories:
+    post:
+      tags:
+        - Categories
+      summary: Create category
+      description: Create category with provided data
+      produces:
+        - application/json
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/category'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/category'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UNAUTHORIZED'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FORBIDDEN'

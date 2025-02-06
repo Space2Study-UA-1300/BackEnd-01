@@ -1,0 +1,30 @@
+paths:
+  /categories/:id:
+    get:
+      tags:
+        - Categories
+      summary: Get category by id
+      description: Retrieve category by id
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the category.
+          schema:
+            type: string
+            example: 64b78c33f1e3df00123abcd9
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/category'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UNAUTHORIZED'

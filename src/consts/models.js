@@ -6,6 +6,7 @@ const refs = {
   ADMIN_INVITATION: 'AdminInvitation',
   MESSAGE: 'Message',
   CHAT: 'Chat',
+  CATEGORY: 'Category',
   LESSON: 'Lesson',
   FINISHED_LESSON: 'FinishedLesson',
   QUIZ: 'Quiz',
