@@ -14,7 +14,7 @@ const {
 
 router.use(authMiddleware)
 router.param('id', idValidation)
-const params = [{ model: Question, idName: 'id' }]
+const params = [{ model: Question, idName: 'questionId' }]
 
 router.get('/', asyncWrapper(questionController.getQuestions))
 router.get('/:questionId', isEntityValid({ params }), asyncWrapper(questionController.getQuestionById))
