@@ -1,7 +1,7 @@
 const { OAuth2Client } = require('google-auth-library')
 const tokenService = require('~/services/token')
 const emailService = require('~/services/email')
-const { getUserByEmail, createUser, privateUpdateUser, getUserById } = require('~/services/user')
+const { getUserByEmail, createUser, privateUpdateUser, getUserById, setConfirmTokenToTrue } = require('~/services/user')
 const { createError } = require('~/utils/errorsHelper')
 const {
   EMAIL_NOT_CONFIRMED,
@@ -135,6 +135,14 @@ const authService = {
     await emailService.sendEmail(email, emailSubject.SUCCESSFUL_PASSWORD_RESET, language, {
       firstName
     })
+  },
+  checkConfirmToken: async (confirmToken) => {
+    const user = await tokenService.getUserIdByToken(confirmToken)
+    return user
+  },
+  setConfirmToken: async (confirmToken) => {
+    const set = await setConfirmTokenToTrue(confirmToken)
+    return set
   }
 }
 

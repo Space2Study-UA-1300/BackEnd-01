@@ -22,7 +22,6 @@ const emailService = {
     const langTemplate = templateToSend[language]
     const templatePath = path.join(__dirname, '../emails', langTemplate.template)
     const html = await emailTemplates.render(templatePath, text)
-
     await sendMail({
       from: `Space2Study <${user}>`,
       to: email,

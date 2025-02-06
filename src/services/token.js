@@ -112,6 +112,9 @@ const tokenService = {
 
   removeConfirmToken: async (confirmToken) => {
     await Token.deleteOne({ confirmToken })
+  },
+  getUserIdByToken: async (confirmToken) => {
+    return await Token.findOne({ confirmToken: confirmToken }, { _id: 0, resetToken: 0, __v: 0 })
   }
 }
 

@@ -12,10 +12,8 @@ const OAuth2 = google.auth.OAuth2
 const getAccessToken = async () => {
   try {
     const oAuth2Client = new OAuth2(clientId, clientSecret, redirectUri)
-
     oAuth2Client.setCredentials({ refresh_token: refreshToken })
     const accessToken = await oAuth2Client.getAccessToken()
-
     return accessToken
   } catch (err) {
     logger.error(err)
