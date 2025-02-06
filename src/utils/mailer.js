@@ -37,6 +37,13 @@ const createTransport = async () => {
         refreshToken,
         accessToken
       }
+      // Uncomment the following line **only if** you encounter a TLS error during execution.
+      // This disables SSL certificate validation, which can be a security risk.
+      // Use it temporarily and only when necessary.
+
+      // tls: {
+      //     rejectUnauthorized: false // Disables SSL certificate verification (use only if needed)
+      // }
     })
 
     return transporter
