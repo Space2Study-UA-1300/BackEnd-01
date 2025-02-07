@@ -27,6 +27,9 @@ const createTransport = async () => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       secure: true,
+      port: 465,
+      logger: true,
+      debug: true,
       auth: {
         type: 'OAuth2',
         user,
@@ -34,6 +37,9 @@ const createTransport = async () => {
         clientSecret,
         refreshToken,
         accessToken
+      },
+      tls: {
+        rejectUnAuthorized: false
       }
       // Uncomment the following line **only if** you encounter a TLS error during execution.
       // This disables SSL certificate validation, which can be a security risk.

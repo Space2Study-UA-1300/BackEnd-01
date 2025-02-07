@@ -84,7 +84,9 @@ const tokenService = {
       return await Token.create({ user: userId, [tokenName]: tokenValue })
     }
   },
-
+  getUserIdByToken: async (confirmToken) => {
+    return await Token.findOne({ confirmToken: confirmToken }, { _id: 0, resetToken: 0, __v: 0 })
+  },
   findToken: async (tokenValue, tokenName) => {
     if (!Object.values(tokenNames).includes(tokenName)) {
       throw createError(404, INVALID_TOKEN_NAME)
@@ -112,9 +114,6 @@ const tokenService = {
 
   removeConfirmToken: async (confirmToken) => {
     await Token.deleteOne({ confirmToken })
-  },
-  getUserIdByToken: async (confirmToken) => {
-    return await Token.findOne({ confirmToken: confirmToken }, { _id: 0, resetToken: 0, __v: 0 })
   }
 }
 
