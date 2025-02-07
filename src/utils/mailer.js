@@ -12,10 +12,8 @@ const OAuth2 = google.auth.OAuth2
 const getAccessToken = async () => {
   try {
     const oAuth2Client = new OAuth2(clientId, clientSecret, redirectUri)
-
     oAuth2Client.setCredentials({ refresh_token: refreshToken })
     const accessToken = await oAuth2Client.getAccessToken()
-
     return accessToken
   } catch (err) {
     logger.error(err)
@@ -29,6 +27,9 @@ const createTransport = async () => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       secure: true,
+      port: 465,
+      logger: true,
+      debug: true,
       auth: {
         type: 'OAuth2',
         user,
@@ -36,6 +37,9 @@ const createTransport = async () => {
         clientSecret,
         refreshToken,
         accessToken
+      },
+      tls: {
+        rejectUnAuthorized: false
       }
       // Uncomment the following line **only if** you encounter a TLS error during execution.
       // This disables SSL certificate validation, which can be a security risk.
