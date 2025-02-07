@@ -70,12 +70,10 @@ const authService = {
 
   checkConfirmToken: async(confirmToken) => {
     const user = await tokenService.getUserIdByToken(confirmToken)
-    console.log('user by token' , user)
     return user
   },
   setConfirmToken: async(confirmToken) => {
     const set = await setConfirmTokenToTrue(confirmToken)
-    console.log('set ' , set)
     return set
   },
   refreshAccessToken: async (refreshToken) => {
