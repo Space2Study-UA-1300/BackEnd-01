@@ -1,10 +1,14 @@
 const { Schema, model } = require('mongoose')
 
-const { SUBJECT } = require('~/consts/models')
+const { SUBJECT, USER } = require('~/consts/models')
 
 const subjectSchema = new Schema({
   name: {
     type: String
+  },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: USER
   },
   createdAt: {
     type: Date,

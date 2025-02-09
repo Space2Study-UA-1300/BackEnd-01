@@ -1,4 +1,5 @@
 const Subject = require('~/models/subject')
+const ObjectId = require('mongodb').ObjectId
 
 const subjectService = {
   getSubjects: async () => {
@@ -26,6 +27,12 @@ const subjectService = {
   },
   deleteSubject: async (id) => {
     await Subject.findByIdAndRemove(id).exec()
+  },
+  getSubjectsByCategoryId: async (categoryId) => {
+    return Subject.find({ category: ObjectId(categoryId) })
+  },
+  getSubjectsByFirstLetters: async (letters) => {
+    return Subject.find({ name: { $regex: '^' + letters, $options: 'i' } })
   }
 }
 module.exports = subjectService
