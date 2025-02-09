@@ -4,18 +4,18 @@ const categoriesAggregateOptions = (query) => {
   const { limit = 100, name = '', skip = 0 } = query
 
   return [
-    {
-      $lookup: {
-        from: 'subjects',
-        localField: '_id',
-        foreignField: 'category',
-        as: 'subjects'
-      }
-    },
+    // {
+    //   $lookup: {
+    //     from: 'subjects',
+    //     localField: '_id',
+    //     foreignField: 'category',
+    //     as: 'subjects'
+    //   }
+    // },
     {
       $match: {
-        name: getRegex(name),
-        subjects: { $exists: true, $ne: [] }
+        name: getRegex(name)
+        // subjects: { $exists: true, $ne: [] }
       }
     },
     {

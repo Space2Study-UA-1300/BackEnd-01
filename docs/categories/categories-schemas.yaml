@@ -1,0 +1,83 @@
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    categoryName:
+      name: name
+      in: query
+      description: A search term for name of category.
+      required: false
+      schema:
+        type: string
+        example: Music
+    skip:
+      name: skip
+      in: query
+      description: Number of items to skip (used for pagination).
+      required: false
+      default: 0
+      schema:
+        type: integer
+        example: 10
+    limit:
+      name: limit
+      in: query
+      description: Number of items to return per page (used for pagination).
+      required: false
+      default: 100
+      schema:
+        type: integer
+        example: 5
+  schemas:
+    category:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Unique identifier for the category
+          example: 64b78c33f1e3df00123abcd9
+        name:
+          type: string
+          description: Category name
+          example: Music
+          required: true
+        appearance:
+          type: object
+          properties:
+            color:
+              type: string
+              default: '#66C42C'
+            icon:
+              type: string
+              default: 'language'
+              enum:
+                [
+                  'audiotrack',
+                  'biotech',
+                  'brush',
+                  'language',
+                  'monitor',
+                  'palette',
+                  'payments',
+                  'science',
+                  'star',
+                  'tag',
+                  'troubleshoot'
+                ]
+        offers:
+          type: integer
+          default: 0
+    categoryNames:
+      type: array
+      items:
+        type: object
+        properties:
+          _id:
+            type: string
+            example: 64b78c33f1e3df00123abcd9
+          name:
+            type: string
+            example: Music

@@ -20,6 +20,7 @@ router.post('/login', validationMiddleware(loginValidationSchema), asyncWrapper(
 router.post('/google-auth', asyncWrapper(authController.authGoogle))
 router.post('/logout', asyncWrapper(authController.logout))
 router.get('/refresh', asyncWrapper(authController.refreshAccessToken))
+router.get('/confirm-email/:confirmToken', asyncWrapper(authController.confirmEmail))
 router.post(
   '/forgot-password',
   validationMiddleware(forgotPasswordValidationSchema),
@@ -27,7 +28,7 @@ router.post(
   asyncWrapper(authController.sendResetPasswordEmail)
 )
 router.patch(
-  '/reset-password/:token',
+  '/reset-password/:confirmToken',
   validationMiddleware(resetPasswordValidationSchema),
   langMiddleware,
   asyncWrapper(authController.updatePassword)

@@ -19,12 +19,7 @@ const swaggerOptions = {
       {
         url: SERVER_URL
       }
-    ],
-    components: {
-      // securitySchemes: {
-      //   //cookieAuth or any other security schema
-      // }
-    }
+    ]
   },
   apis: ['./docs/**/*.yaml']
 }
