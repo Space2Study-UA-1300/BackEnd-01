@@ -277,10 +277,19 @@ components:
     createOfferRequest:
       type: object
       properties:
+        author:
+          required: true
+          type: string
+          example: 58910bf6f214ffc36cdc0caa
+        authorRole:
+          required: true
+          type: string
+          enum: ['student', 'tutor']
+          example: tutor
         price:
           required: true
           type: integer
-          exmaple: 100
+          example: 100
         proficiencyLevel:
           required: true
           type: string
