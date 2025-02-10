@@ -10,7 +10,7 @@ const getOffers = async (req, res) => {
 }
 
 const getOfferById = async (req, res) => {
-  const { id } = req.params
+  const id = req.params
 
   const offer = await offerService.getOfferById(id)
 

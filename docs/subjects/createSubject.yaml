@@ -1,0 +1,30 @@
+paths:
+  /subjects:
+    post:
+      tags:
+        - Subjects
+      summary: Create subject
+      description: Create subject with provided data
+      produces:
+        - application/json
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/subject'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/catesubjectory'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UNAUTHORIZED'

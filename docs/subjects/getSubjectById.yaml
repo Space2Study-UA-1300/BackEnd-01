@@ -1,0 +1,46 @@
+paths:
+  /subjects/:id:
+    get:
+      tags:
+        - Subjects
+      summary: Get subjecst by id
+      description: Retrieve subject by id
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the subject.
+          schema:
+            type: string
+            example: 67a8b1ee731a06ec1c25e5b7
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subject'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UNAUTHORIZED'
+        404:
+          description: Subject not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  code:
+                    type: string
+                    example: SUBJECT_NOT_FOUND
+                  message:
+                    type: string
+                    example: 'Subject not found'

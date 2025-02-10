@@ -251,7 +251,7 @@ components:
         price:
           required: true
           type: integer
-          exmaple: 100
+          example: 100
         proficiencyLevel:
           required: true
           type: string
