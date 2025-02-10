@@ -2,18 +2,22 @@ const Subject = require('~/models/subject')
 const ObjectId = require('mongodb').ObjectId
 
 const subjectService = {
-  getSubjects: async () => {
-    return await Subject.find().lean().exec()
+  getSubjects: async (pipeline) => {
+    const [response] = await Subject.aggregate(pipeline).exec()
+    console.log(response)
+    return response
   },
   getSubjectById: async (id) => {
     return await Subject.findById(id).lean().exec()
   },
-  createSubject: async (data) => {
+  createSubject: async (category, categoryName, data) => {
     const { name, createdAt, updatedAt } = data
     return await Subject.create({
       name,
       createdAt,
-      updatedAt
+      updatedAt,
+      category,
+      categoryName
     })
   },
   updateSubject: async (id, data) => {
@@ -33,6 +37,13 @@ const subjectService = {
   },
   getSubjectsByFirstLetters: async (letters) => {
     return Subject.find({ name: { $regex: '^' + letters, $options: 'i' } })
+  },
+  getSubjectByName: async (name) => {
+    return Subject.findOne({ name })
+  },
+  getSubjectsByCategories: async (pipeline) => {
+    const [response] = await Subject.aggregate(pipeline).exec()
+    return response
   }
 }
 module.exports = subjectService

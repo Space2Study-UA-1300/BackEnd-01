@@ -11,11 +11,11 @@ const Subject = require('~/models/subject')
 const params = [{ model: Subject, idName: 'id' }]
 
 router.use(authMiddleware)
-// what is id validation?
 router.param('id', idValidation)
 
-router.get('/', asyncWrapper(subjectController.getSubjects))
+//router.get('/', asyncWrapper(subjectController.getSubjects))
 router.post('/', asyncWrapper(subjectController.createSubject))
+router.get('/', asyncWrapper(subjectController.getListOfSubjectByCategories))
 router.get('/:id', isEntityValid({ params }), asyncWrapper(subjectController.getSubjectById))
 router.patch('/:id', isEntityValid({ params }), asyncWrapper(subjectController.updateSubject))
 router.delete('/:id', isEntityValid({ params }), asyncWrapper(subjectController.deleteSubject))

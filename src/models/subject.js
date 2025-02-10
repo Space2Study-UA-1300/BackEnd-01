@@ -10,6 +10,9 @@ const subjectSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: USER
   },
+  categoryName: {
+    type: String
+  },
   createdAt: {
     type: Date,
     default: null
