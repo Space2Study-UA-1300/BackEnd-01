@@ -4,7 +4,6 @@ const categoryNamesAggregateOptions = require('~/utils/categories/categoryNamesA
 
 const getCategories = async (req, res) => {
   const pipeline = categoriesAggregateOptions(req.query)
-  console.log(pipeline)
 
   const categories = await categoryService.getCategories(pipeline)
 

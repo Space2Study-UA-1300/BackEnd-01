@@ -25,7 +25,6 @@ const getSubjectByname = async (req, res) => {
 
 const getListOfSubjectByCategories = async (req, res) => {
   const pipeline = await subjectsByCategoriesAggregationOptions(req.query)
-  console.log(pipeline)
   const subjects = await subjectService.getSubjectsByCategories(pipeline)
 
   res.status(200).json(subjects)
