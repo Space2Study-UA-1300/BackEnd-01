@@ -47,6 +47,20 @@ components:
         type: string
         enum: ['English', 'Ukrainian', 'Polish', 'German', 'French', 'Spanish', 'Arabic']
         example: English
+    category:
+      name: category
+      in: query
+      description: Category id
+      schema:
+        type: string
+        example: 67a10bf6f214ffc36cdc0caa
+    subject:
+      name: subject
+      in: query
+      description: Subject id
+      schema:
+        type: string
+        example: 67a10bf6f214ffc36cdc0cbb
     search:
       name: search
       in: query
@@ -162,6 +176,21 @@ components:
           description: Role of the author
           enum: [student, tutor]
           example: tutor
+        category:
+          type: object
+          properties:
+            appearance:
+              type: object
+              properties:
+                color:
+                  type: string
+                  example: '#FFF'
+                icon:
+                  type: string
+                  example: languages
+        subject:
+          type: string
+          example: German
         author:
           type: string
           description: The ID of the user who created the offer
@@ -275,11 +304,11 @@ components:
         subject:
           required: true
           type: string
-          example: Offer subject
+          example: 67a10bf6f214ffc36cdc0caa
         category:
           required: true
           type: string
-          example: Offer category
+          example: 67a10bf6f214ffc36cdc0cbb
         status:
           required: true
           type: string

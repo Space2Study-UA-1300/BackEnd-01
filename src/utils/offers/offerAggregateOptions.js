@@ -9,6 +9,8 @@ const offerAggregateOptions = (query, params) => {
     rating,
     language,
     search,
+    category,
+    subject,
     languages,
     nativeLanguage,
     excludedOfferId,
@@ -63,6 +65,14 @@ const offerAggregateOptions = (query, params) => {
 
   if (languages) {
     match.languages = { $in: languages }
+  }
+
+  if (category) {
+    match.category = mongoose.Types.ObjectId(category)
+  }
+
+  if (subject) {
+    match.subject = mongoose.Types.ObjectId(subject)
   }
 
   if (status) {
@@ -125,6 +135,42 @@ const offerAggregateOptions = (query, params) => {
     },
     {
       $unwind: '$author'
+    },
+    {
+      $lookup: {
+        from: 'categories',
+        localField: 'category',
+        foreignField: '_id',
+        pipeline: [
+          {
+            $project: {
+              appearance: 1
+            }
+          }
+        ],
+        as: 'category'
+      }
+    },
+    {
+      $unwind: '$category'
+    },
+    {
+      $lookup: {
+        from: 'subjects',
+        localField: 'subject',
+        foreignField: '_id',
+        pipeline: [
+          {
+            $project: {
+              name: 1
+            }
+          }
+        ],
+        as: 'subject'
+      }
+    },
+    {
+      $unwind: '$subject'
     },
     {
       $match: match
