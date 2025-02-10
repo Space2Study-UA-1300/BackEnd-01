@@ -1,27 +1,26 @@
 paths:
   /subjects/:id:
-    get:
+    patch:
       tags:
         - Subjects
-      summary: Get subjecst by id
-      description: Retrieve subject by id
-      produces:
-        - application/json
+      summary: Update subject by id
+      description: Update subject by unique id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createOfferRequest'
       parameters:
         - in: path
           name: id
           required: true
-          description: Unique identifier of the subject.
+          description: Unique identifier of the offer.
           schema:
             type: string
-            example: 67a8b1ee731a06ec1c25e5b7
+            example: 64b78c33f1e3df00123abcd9
       responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/subject'
+        204:
+          description: Offer updated successfully. No response returned.
         401:
           description: Unauthorized
           content:
@@ -44,3 +43,4 @@ paths:
                   message:
                     type: string
                     example: 'Subject not found'
+

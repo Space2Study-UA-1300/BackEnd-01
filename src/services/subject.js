@@ -40,10 +40,6 @@ const subjectService = {
   },
   getSubjectByName: async (name) => {
     return Subject.findOne({ name })
-  },
-  getSubjectsByCategories: async (pipeline) => {
-    const [response] = await Subject.aggregate(pipeline).exec()
-    return response
   }
 }
 module.exports = subjectService

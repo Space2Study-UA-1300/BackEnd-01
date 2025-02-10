@@ -1,0 +1,90 @@
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    subjectName:
+      name: name
+      in: query
+      description: A search term for name of subject by first letters(good to use in search).
+      required: false
+      schema:
+        type: string
+        example: Algebra
+    categoryName:
+      name: categoryName
+      in: query
+      description: A search term for name of category by first letter(good to use in search).
+      required: false
+      schema:
+        type: string
+        example: Mathematics
+    skip:
+      name: skip
+      in: query
+      description: Number of items to skip (used for pagination).
+      required: false
+      default: 0
+      schema:
+        type: integer
+        example: 10
+    limit:
+      name: limit
+      in: query
+      description: Number of items to return per page (used for pagination).
+      required: false
+      default: 5
+      schema:
+        type: integer
+        example: 5
+    order:
+      name: order
+      in: query
+      description: Order subjects alphabetically (used for sorting).
+      required: false
+      default: 1
+      schema:
+        type: integer
+        example: -1
+    sortBy:
+      name: sortBy
+      in: query
+      description: Sort subjects by subject name or category name (used for sorting).
+      required: false
+      default: 1
+      schema:
+        type: integer
+        example: -1
+  schemas:
+    subject:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Unique identifier for the subject
+          example: 64b78c33f1e3df00123abcd9
+        name:
+          type: string
+          description: Subject name
+          example: Algebra
+          required: true
+        createdAt:
+          type: string
+          format: date-time
+          description: When the subject was created
+          example: 2023-12-01T12:00:00Z
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the subject was updated
+          example: 2023-12-01T12:00:00Z
+        category:
+          type: string
+          description: The ID of the category of specific subject
+          example: 64a67f22d2b5e100123abcd8
+        categoryName:
+          type: string
+          description: The name of the category of specific subject
+          example: 
