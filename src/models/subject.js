@@ -1,17 +1,21 @@
 const { Schema, model } = require('mongoose')
 
 const { SUBJECT, USER } = require('~/consts/models')
+const { FIELD_CANNOT_BE_EMPTY } = require('~/consts/errors')
 
 const subjectSchema = new Schema({
   name: {
-    type: String
+    type: String,
+    required: [true, FIELD_CANNOT_BE_EMPTY('name')]
   },
   category: {
     type: Schema.Types.ObjectId,
-    ref: USER
+    ref: USER,
+    required: [true, FIELD_CANNOT_BE_EMPTY('name')]
   },
   categoryName: {
-    type: String
+    type: String,
+    required: [true, FIELD_CANNOT_BE_EMPTY('name')]
   },
   createdAt: {
     type: Date,
