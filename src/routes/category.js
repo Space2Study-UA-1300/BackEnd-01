@@ -6,6 +6,7 @@ const { authMiddleware, restrictTo } = require('~/middlewares/auth')
 const isEntityValid = require('~/middlewares/entityValidation')
 
 const categoryController = require('~/controllers/category')
+const subjectController = require('~/controllers/subject')
 const Category = require('~/models/category')
 
 const {
@@ -21,6 +22,11 @@ router.param('id', idValidation)
 router.get('/', asyncWrapper(categoryController.getCategories))
 router.get('/names', asyncWrapper(categoryController.getCategoriesNames))
 router.get('/:id', isEntityValid({ params }), asyncWrapper(categoryController.getCategoryById))
+router.get(
+  '/:id/subjects/names',
+  isEntityValid({ params }),
+  asyncWrapper(subjectController.getSubjectNamesByCategoryId)
+)
 
 router.use(restrictTo(ADMIN))
 router.post('/', asyncWrapper(categoryController.createCategory))
