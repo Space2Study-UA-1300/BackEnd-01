@@ -2,16 +2,12 @@ const router = require('express').Router()
 
 const idValidation = require('~/middlewares/idValidation')
 const asyncWrapper = require('~/middlewares/asyncWrapper')
-const { authMiddleware, restrictTo } = require('~/middlewares/auth')
+const { authMiddleware } = require('~/middlewares/auth')
 const isEntityValid = require('~/middlewares/entityValidation')
 
 const categoryController = require('~/controllers/category')
 const subjectController = require('~/controllers/subject')
 const Category = require('~/models/category')
-
-const {
-  roles: { ADMIN }
-} = require('~/consts/auth')
 
 const params = [{ model: Category, idName: 'id' }]
 
@@ -27,8 +23,6 @@ router.get(
   isEntityValid({ params }),
   asyncWrapper(subjectController.getSubjectNamesByCategoryId)
 )
-
-router.use(restrictTo(ADMIN))
 router.post('/', asyncWrapper(categoryController.createCategory))
 
 module.exports = router
