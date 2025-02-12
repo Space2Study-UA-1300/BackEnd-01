@@ -10,8 +10,8 @@ const subjectService = {
   getSubjectById: async (id) => {
     return await Subject.findById(id).lean().exec()
   },
-  createSubject: async (category, categoryName, data) => {
-    const { name, createdAt, updatedAt } = data
+  createSubject: async (data) => {
+    const { name, createdAt, updatedAt, category, categoryName } = data
     return await Subject.create({
       name,
       createdAt,
