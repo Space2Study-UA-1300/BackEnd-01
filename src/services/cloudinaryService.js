@@ -1,4 +1,4 @@
-import { handleUpload } from 'cloudinary'
+const { handleUpload } = require('../../cloudinary')
 const cloudinaryService = {
   uploadImage: async (req, res) => {
     const b64 = Buffer.from(req.file.buffer).toString('base64')

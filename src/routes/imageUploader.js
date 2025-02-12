@@ -1,6 +1,6 @@
 const router = require('express').Router({ mergeParams: true })
 const asyncWrapper = require('~/middlewares/asyncWrapper')
-import { upload } from 'cloudinary'
+const { upload } = require('../../cloudinary')
 
 const cloudinaryService = require('~/services/cloudinaryService')
 

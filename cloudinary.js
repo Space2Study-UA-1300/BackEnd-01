@@ -18,4 +18,4 @@ const upload = Multer({
   storage
 })
 
-export { handleUpload, storage, upload }
+module.exports = { handleUpload, storage, upload }
