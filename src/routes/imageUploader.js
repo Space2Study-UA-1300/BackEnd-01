@@ -4,6 +4,6 @@ const { upload } = require('../../cloudinary')
 
 const cloudinaryService = require('~/services/cloudinaryService')
 
-router.post('/upload-image', upload.single('image'), asyncWrapper(cloudinaryService.uploadImage))
+router.post('/', upload.single('image'), asyncWrapper(cloudinaryService.uploadImage))
 
 module.exports = router
