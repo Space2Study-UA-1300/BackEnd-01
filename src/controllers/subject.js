@@ -23,16 +23,9 @@ const getSubjectByname = async (req, res) => {
 }
 
 const createSubject = async (req, res) => {
-  //if category
-  // 1. category endopint
-  //category id and category name
-  //if category exists
-  const { isCategory } = req.subject
-  if (isCategory) {
-    const data = req.body
-    const newSubject = await subjectService.createSubject(data)
-    res.status(201).json(newSubject)
-  }
+  const data = req.body
+  const newSubject = await subjectService.createSubject(data)
+  res.status(201).json(newSubject)
 }
 
 const updateSubject = async (req, res) => {

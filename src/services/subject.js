@@ -4,7 +4,6 @@ const ObjectId = require('mongodb').ObjectId
 const subjectService = {
   getSubjects: async (pipeline) => {
     const [response] = await Subject.aggregate(pipeline).exec()
-    console.log(response)
     return response
   },
   getSubjectById: async (id) => {
