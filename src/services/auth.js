@@ -18,7 +18,7 @@ const {
   gmailCredentials: { clientId }
 } = require('~/configs/config')
 
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
 const authService = {
   signup: async (role, firstName, lastName, email, password, language) => {
     const saltRounds = 12
