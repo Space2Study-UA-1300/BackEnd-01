@@ -32,8 +32,8 @@ const subjectService = {
   deleteSubject: async (id) => {
     await Subject.findByIdAndRemove(id).exec()
   },
-  getSubjectsByCategoryId: async (categoryId) => {
-    return Subject.find({ category: ObjectId(categoryId) })
+  getSubjectNamesByCategoryId: async (categoryId) => {
+    return Subject.find({ category: ObjectId(categoryId) }, { name: 1 })
   },
   getSubjectsByFirstLetters: async (letters) => {
     return Subject.find({ name: { $regex: '^' + letters, $options: 'i' } })
