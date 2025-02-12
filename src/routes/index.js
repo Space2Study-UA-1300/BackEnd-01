@@ -10,7 +10,6 @@ const offer = require('~/routes/offer')
 const subject = require('~/routes/subject')
 const category = require('~/routes/category')
 const imageUploader = require('~/routes/imageUploader')
-
 router.use('/auth', auth)
 router.use('/users', user)
 router.use('/send-email', email)

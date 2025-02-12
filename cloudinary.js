@@ -13,9 +13,7 @@ async function handleUpload(file) {
   return res
 }
 
-const storage = new Multer.memoryStorage()
-const upload = Multer({
-  storage
-})
+const storage = Multer.memoryStorage()
+const upload = Multer({ storage: storage })
 
-module.exports = { handleUpload, storage, upload }
+module.exports = { handleUpload, upload }
