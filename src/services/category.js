@@ -19,6 +19,12 @@ const categoryService = {
   createCategory: async (data) => {
     const { name, appearance } = data
 
+    let category = await Category.findOne({ name })
+
+    if (category) {
+      return category
+    }
+
     return await Category.create({
       name,
       appearance
