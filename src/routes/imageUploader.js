@@ -1,5 +1,5 @@
 const router = require('express').Router({ mergeParams: true })
-const { upload, handleUpload } = require('../../cloudinary')
+const { upload, handleUpload, handleImageDelete } = require('../../cloudinary')
 
 router.post('/', upload.single('image'), async (req, res) => {
   try {
@@ -11,10 +11,21 @@ router.post('/', upload.single('image'), async (req, res) => {
 
     res.json(cldRes)
   } catch (error) {
-    console.error('Error during upload:', error.message)
-
     res.status(500).send({
       message: error.message
+    })
+  }
+})
+
+router.delete('/:publicId', async (req, res) => {
+  const { publicId } = req.params
+  console.log(publicId)
+  try {
+    await handleImageDelete(publicId)
+    res.sendStatus(204)
+  } catch (err) {
+    res.status(500).send({
+      message: err.message
     })
   }
 })

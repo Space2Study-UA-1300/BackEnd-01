@@ -12,8 +12,17 @@ async function handleUpload(file) {
   })
   return res
 }
+async function handleImageDelete(publicId) {
+  const res = await cloudinary.uploader.destroy(publicId)
+  return res
+}
 
 const storage = Multer.memoryStorage()
-const upload = Multer({ storage: storage })
+const upload = Multer({
+  storage: storage,
+  limit: {
+    fileSize: 1000000
+  }
+})
 
-module.exports = { handleUpload, upload }
+module.exports = { handleUpload, upload, handleImageDelete }
