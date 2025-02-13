@@ -3,7 +3,9 @@ const { tokenValidation } = require('../utils/tokenValidation')
 
 const authMiddleware = (req, _res, next) => {
   const accessToken = req.cookies.accessToken || req.headers.cookie
+
   const userData = tokenValidation(accessToken)
+
   req.user = userData
 
   next()

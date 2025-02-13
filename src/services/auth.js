@@ -1,7 +1,7 @@
-const { OAuth2Client } = require('google-auth-library')
 const tokenService = require('~/services/token')
 const emailService = require('~/services/email')
-const { getUserByEmail, createUser, privateUpdateUser, getUserById } = require('~/services/user')
+const { OAuth2Client } = require('google-auth-library')
+const { getUserByEmail, createUser, privateUpdateUser, getUserById, setConfirmTokenToTrue } = require('~/services/user')
 const { createError } = require('~/utils/errorsHelper')
 const {
   EMAIL_NOT_CONFIRMED,
@@ -18,9 +18,12 @@ const {
   gmailCredentials: { clientId }
 } = require('~/configs/config')
 
+const bcrypt = require('bcrypt')
 const authService = {
   signup: async (role, firstName, lastName, email, password, language) => {
-    const user = await createUser(role, firstName, lastName, email, password, language)
+    const saltRounds = 12
+    const hash = await bcrypt.hash(password, saltRounds)
+    const user = await createUser(role, firstName, lastName, email, hash, language)
 
     const confirmToken = tokenService.generateConfirmToken({ id: user._id, role })
     await tokenService.saveToken(user._id, confirmToken, CONFIRM_TOKEN)
@@ -35,10 +38,14 @@ const authService = {
     const user = await getUserByEmail(email)
 
     if (!user) {
-      throw createError(401, USER_NOT_FOUND)
+      throw createError(404, USER_NOT_FOUND)
     }
-
-    const checkedPassword = password === user.password || isFromGoogle
+    const doesPasswordMatch = async () => {
+      const match = await bcrypt.compare(password, user.password)
+      return match
+    }
+    console.log(isFromGoogle)
+    const checkedPassword = await doesPasswordMatch()
 
     if (!checkedPassword) {
       throw createError(401, INCORRECT_CREDENTIALS)
@@ -61,7 +68,6 @@ const authService = {
 
     return tokens
   },
-
   googleAuth: async (idToken) => {
     const client = new OAuth2Client(clientId)
 
@@ -88,6 +94,14 @@ const authService = {
     await tokenService.removeRefreshToken(refreshToken)
   },
 
+  checkConfirmToken: async (confirmToken) => {
+    const user = await tokenService.getUserIdByToken(confirmToken)
+    return user
+  },
+  setConfirmToken: async (confirmToken) => {
+    const set = await setConfirmTokenToTrue(confirmToken)
+    return set
+  },
   refreshAccessToken: async (refreshToken) => {
     const tokenData = tokenService.validateRefreshToken(refreshToken)
     const tokenFromDB = await tokenService.findToken(refreshToken, REFRESH_TOKEN)

@@ -1,0 +1,46 @@
+paths:
+  /subjects/:id:
+    delete:
+      tags:
+        - Subjects
+      summary: Delete subject by id
+      description: Delete subject by unique id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the subject.
+          schema:
+            type: string
+            example: 67a8b1ee731a06ec1c25e5b7
+      responses:
+        204:
+          description: Subject deleted successfully. No response returned.
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UNAUTHORIZED'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FORBIDDEN'
+        404:
+          description: Subject not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  code:
+                    type: string
+                    example: SUBJECT_NOT_FOUND
+                  message:
+                    type: string
+                    example: 'Subject not found'

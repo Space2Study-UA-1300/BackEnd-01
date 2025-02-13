@@ -1,0 +1,39 @@
+paths:
+  /categories/:id/subjects/names:
+    get:
+      tags:
+        - Subjects
+      summary: Get subject names by category id
+      description: Retrieve subject names by category id
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Unique identifier of the category.
+          schema:
+            type: string
+            example: 67a8b1ee731a06ec1c25e5b7
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: 67a8b1ee731a06ec1c25e5b7
+                    name:
+                      type: string
+                      example: Ukrainian
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UNAUTHORIZED'

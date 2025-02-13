@@ -15,6 +15,8 @@ paths:
         - $ref: '#/components/parameters/language'
         - $ref: '#/components/parameters/search'
         - $ref: '#/components/parameters/languages'
+        - $ref: '#/components/parameters/category'
+        - $ref: '#/components/parameters/subject'
         - $ref: '#/components/parameters/nativeLanguage'
         - $ref: '#/components/parameters/excludedOfferId'
         - $ref: '#/components/parameters/sort'

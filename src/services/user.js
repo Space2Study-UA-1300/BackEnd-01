@@ -1,5 +1,7 @@
 const User = require('~/models/user')
 const { createError } = require('~/utils/errorsHelper')
+const mongoose = require('mongoose')
+const { ObjectId } = mongoose.Types
 
 const { DOCUMENT_NOT_FOUND, ALREADY_REGISTERED } = require('~/consts/errors')
 const filterAllowedFields = require('~/utils/filterAllowedFields')
@@ -100,6 +102,10 @@ const userService = {
 
   deleteUser: async (id) => {
     await User.findByIdAndRemove(id).exec()
+  },
+  setConfirmTokenToTrue: async (id) => {
+    const userId = ObjectId(id)
+    await User.findByIdAndUpdate(userId, { isEmailConfirmed: true }, { new: true })
   }
 }
 
