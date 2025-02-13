@@ -17,12 +17,13 @@ async function handleImageDelete(publicId) {
   return res
 }
 
-const storage = Multer.memoryStorage()
-const upload = Multer({
-  storage: storage,
-  limit: {
-    fileSize: 1000000
+const storage = Multer.memoryStorage({
+  limits: {
+    fileSize: 10000000
   }
+})
+const upload = Multer({
+  storage: storage
 })
 
 module.exports = { handleUpload, upload, handleImageDelete }
