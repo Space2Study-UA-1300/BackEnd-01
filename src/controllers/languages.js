@@ -1,5 +1,5 @@
 const Language = require('~/models/languages')
-// const createNotFoundError = require('~/utils/errorsHelper')
+const createNotFoundError = require('~/utils/errorsHelper')
 const languageService = require('~/services/languages')
 
 const getLanguages = async (req, res) => {
