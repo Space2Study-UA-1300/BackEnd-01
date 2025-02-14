@@ -22,12 +22,6 @@ const categoriesAggregateOptions = (query) => {
       $sort: { totalOffers: -1, updatedAt: -1 }
     },
     {
-      $skip: parseInt(skip)
-    },
-    {
-      $limit: parseInt(limit)
-    },
-    {
       $project: {
         subjects: 0
       }
@@ -40,14 +34,14 @@ const categoriesAggregateOptions = (query) => {
     },
     {
       $project: {
-        items: 1,
         count: {
           $cond: {
             if: { $eq: ['$count', []] },
             then: 0,
             else: { $arrayElemAt: ['$count.count', 0] }
           }
-        }
+        },
+        items: 1
       }
     }
   ]
