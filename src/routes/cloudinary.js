@@ -3,6 +3,9 @@ const { upload, handleUpload, handleImageDelete } = require('../../cloudinary')
 
 router.post('/', upload.single('image'), async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No image file provided' })
+    }
     const b64 = Buffer.from(req.file.buffer).toString('base64')
 
     let dataURI = 'data:' + req.file.mimetype + ';base64,' + b64
@@ -19,14 +22,15 @@ router.post('/', upload.single('image'), async (req, res) => {
 
 router.delete('/:publicId', async (req, res) => {
   const { publicId } = req.params
-  console.log(publicId)
+  if (!publicId) {
+    return res.status(400).json({ message: 'No publicId provided' })
+  }
   try {
     await handleImageDelete(publicId)
     res.sendStatus(204)
-  } catch (err) {
-    res.status(500).send({
-      message: err.message
-    })
+  } catch (error) {
+    res.status(500).json({ message: 'Cloudinary deletion failed' })
+    throw new Error('Failed to delete file from Cloudinary')
   }
 })
 

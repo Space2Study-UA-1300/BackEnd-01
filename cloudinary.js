@@ -19,9 +19,17 @@ async function handleImageDelete(publicId) {
 
 const storage = Multer.memoryStorage({
   limits: {
-    fileSize: 10000000
+    fileSize: 10 * 1024 * 1024
+  },
+  fileFilter: (req, file, cb) => {
+    if (!file.mimetype.match(/^image\/(jpeg|png|gif)$/)) {
+      cb(new Error('Only image files are allowed!'), false)
+      return
+    }
+    cb(null, true)
   }
 })
+
 const upload = Multer({
   storage: storage
 })
