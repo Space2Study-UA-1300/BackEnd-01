@@ -29,11 +29,8 @@ const getSubjectNamesByCategoryId = async (req, res) => {
 }
 
 const createSubject = async (req, res) => {
-  const { id: categoryId, category: categoryName } = req.user
   const data = req.body
-
-  const newSubject = await subjectService.createSubject(categoryId, categoryName, data)
-
+  const newSubject = await subjectService.createSubject(data)
   res.status(201).json(newSubject)
 }
 

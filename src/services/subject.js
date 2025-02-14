@@ -4,14 +4,13 @@ const ObjectId = require('mongodb').ObjectId
 const subjectService = {
   getSubjects: async (pipeline) => {
     const [response] = await Subject.aggregate(pipeline).exec()
-    console.log(response)
     return response
   },
   getSubjectById: async (id) => {
     return await Subject.findById(id).lean().exec()
   },
-  createSubject: async (category, categoryName, data) => {
-    const { name, createdAt, updatedAt } = data
+  createSubject: async (data) => {
+    const { name, createdAt, updatedAt, category, categoryName } = data
     return await Subject.create({
       name,
       createdAt,
