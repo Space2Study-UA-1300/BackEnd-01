@@ -13,7 +13,8 @@ const refs = {
   FINISHED_QUIZ: 'FinishedQuiz',
   ATTACHMENT: 'Attachment',
   QUESTION: 'Question',
-  RESOURCES_CATEGORY: 'ResourcesCategory'
+  RESOURCES_CATEGORY: 'ResourcesCategory',
+  LANGUAGE: 'Language'
 }
 
 module.exports = refs

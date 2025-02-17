@@ -9,7 +9,9 @@ const resourcesCategory = require('~/routes/resourcesCategory')
 const offer = require('~/routes/offer')
 const subject = require('~/routes/subject')
 const category = require('~/routes/category')
+const languages = require('~/routes/languages')
 const imageUploader = require('~/routes/cloudinary')
+
 router.use('/auth', auth)
 router.use('/users', user)
 router.use('/send-email', email)
@@ -19,6 +21,7 @@ router.use('/resources-categories', resourcesCategory)
 router.use('/offers', offer)
 router.use('/subjects', subject)
 router.use('/categories', category)
+router.use('/languages', languages)
 router.use('/upload-image', imageUploader)
 
 module.exports = router
