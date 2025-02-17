@@ -4,8 +4,13 @@ const languageService = require('~/services/languages')
 
 const getLanguages = async (req, res) => {
   try {
-    const languages = await languageService.getLanguages()
-    res.status(200).json(languages)
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 6
+    const search = req.query.search || ''
+
+    const result = await languageService.getLanguages(page, limit, search)
+
+    res.status(200).json(result)
   } catch (error) {
     res.status(500).json({ error: 'Server error' })
   }
