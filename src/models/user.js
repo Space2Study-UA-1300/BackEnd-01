@@ -54,18 +54,14 @@ const userSchema = new Schema(
     photo: [{ url: { type: String }, publicId: { type: String } }],
     professionalSummary: String,
     mainSubjects: {
-      student: [
-        {
-          id: { type: Schema.Types.ObjectId, ref: SUBJECT },
-          name: { type: String, required: true }
-        }
-      ],
-      tutor: [
-        {
-          id: { type: Schema.Types.ObjectId, ref: SUBJECT },
-          name: { type: String, required: true }
-        }
-      ]
+      student: {
+        type: [Schema.Types.ObjectId],
+        ref: SUBJECT
+      },
+      tutor: {
+        type: [Schema.Types.ObjectId],
+        ref: SUBJECT
+      }
     },
     totalReviews: {
       student: { type: Number, default: 0 },
