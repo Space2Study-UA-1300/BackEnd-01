@@ -2,10 +2,13 @@ const Language = require('~/models/languages')
 const createNotFoundError = require('~/utils/errorsHelper')
 const languageService = require('~/services/languages')
 
+const DEFAULT_PAGE = 1
+const DEFAULT_LIMIT = 6
+
 const getLanguages = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1
-    const limit = parseInt(req.query.limit) || 6
+    const page = parseInt(req.query.page) || DEFAULT_PAGE
+    const limit = parseInt(req.query.limit) || DEFAULT_LIMIT
     const search = req.query.search || ''
 
     const result = await languageService.getLanguages(page, limit, search)
