@@ -50,11 +50,15 @@ const offerAggregateOptions = (query, params) => {
   }
 
   if (proficiencyLevel) {
-    match.proficiencyLevel = { $in: proficiencyLevel }
+    const decodedValue = decodeURIComponent(proficiencyLevel).split(',')
+
+    match.proficiencyLevel = { $in: decodedValue }
   }
 
   if (price) {
-    const [minPrice, maxPrice] = price
+    const decodedPrice = decodeURIComponent(price).split(',')
+
+    const [minPrice, maxPrice] = decodedPrice
     match.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) }
   }
 
@@ -94,7 +98,8 @@ const offerAggregateOptions = (query, params) => {
 
   if (sort) {
     try {
-      const parsedSort = JSON.parse(sort)
+      const decodedSort = decodeURIComponent(sort)
+      const parsedSort = JSON.parse(decodedSort)
       const { order, orderBy } = parsedSort
       const sortOrder = order === 'asc' ? 1 : -1
       sortOption = { [orderBy]: sortOrder }
