@@ -24,18 +24,21 @@ const offerAggregateOptions = (query, params) => {
   const match = {}
 
   if (search) {
-    const searchArray = search.trim().split(' ')
+    const decodedSearch = decodeURI(search)
+
+    const searchArray = decodedSearch.trim().split(' ')
+
     const firstNameRegex = getRegex(searchArray[0])
     const lastNameRegex = getRegex(searchArray[1])
 
     const additionalFields = authorId
-      ? [{ 'subject.name': getRegex(search) }]
+      ? [{ 'subject.name': getRegex(decodedSearch) }]
       : [
           { 'author.firstName': firstNameRegex, 'author.lastName': lastNameRegex },
           { 'author.firstName': lastNameRegex, 'author.lastName': firstNameRegex }
         ]
 
-    match['$or'] = [{ title: getRegex(search) }, ...additionalFields]
+    match['$or'] = [{ title: getRegex(decodedSearch) }, ...additionalFields]
   }
 
   if (authorId) {
@@ -47,11 +50,15 @@ const offerAggregateOptions = (query, params) => {
   }
 
   if (proficiencyLevel) {
-    match.proficiencyLevel = { $in: proficiencyLevel }
+    const decodedValue = decodeURIComponent(proficiencyLevel).split(',')
+
+    match.proficiencyLevel = { $in: decodedValue }
   }
 
   if (price) {
-    const [minPrice, maxPrice] = price
+    const decodedPrice = decodeURIComponent(price).split(',')
+
+    const [minPrice, maxPrice] = decodedPrice
     match.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) }
   }
 
@@ -68,11 +75,11 @@ const offerAggregateOptions = (query, params) => {
   }
 
   if (category) {
-    match.category = mongoose.Types.ObjectId(category)
+    match.category = new mongoose.Types.ObjectId(category)
   }
 
   if (subject) {
-    match.subject = mongoose.Types.ObjectId(subject)
+    match.subject = new mongoose.Types.ObjectId(subject)
   }
 
   if (status) {
@@ -91,7 +98,8 @@ const offerAggregateOptions = (query, params) => {
 
   if (sort) {
     try {
-      const parsedSort = JSON.parse(sort)
+      const decodedSort = decodeURIComponent(sort)
+      const parsedSort = JSON.parse(decodedSort)
       const { order, orderBy } = parsedSort
       const sortOrder = order === 'asc' ? 1 : -1
       sortOption = { [orderBy]: sortOrder }
@@ -137,6 +145,9 @@ const offerAggregateOptions = (query, params) => {
       $unwind: '$author'
     },
     {
+      $match: match
+    },
+    {
       $lookup: {
         from: 'categories',
         localField: 'category',
@@ -171,9 +182,6 @@ const offerAggregateOptions = (query, params) => {
     },
     {
       $unwind: '$subject'
-    },
-    {
-      $match: match
     },
     {
       $sort: sortOption
