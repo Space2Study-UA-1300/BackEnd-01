@@ -13,7 +13,12 @@ const regex = {
 
 const enums = {
   APP_LANG_ENUM: ['en', 'ua'],
-  SPOKEN_LANG_ENUM: ['English', 'Ukrainian', 'Polish', 'German', 'French', 'Spanish', 'Arabic'],
+  SPOKEN_LANG_ENUM: [
+    'Chinese', 'Czech', 'Danish', 'Dutch', 'English', 'Estonian', 'Finnish',
+    'French', 'German', 'Hungarian', 'Icelandic', 'Italian', 'Japanese',
+    'Korean', 'Norwegian', 'Polish', 'Portuguese (Brazil)', 'Portuguese (Portugal)',
+    'Romanian', 'Slovak', 'Spanish', 'Swedish', 'Ukrainian'
+  ],
   PROFICIENCY_LEVEL_ENUM: ['Beginner', 'Intermediate', 'Advanced', 'Test Preparation', 'Professional', 'Specialized'],
   ROLE_ENUM: ['student', 'tutor', 'admin', 'superadmin'],
   LOGIN_ROLE_ENUM: ['student', 'tutor', 'admin'],
