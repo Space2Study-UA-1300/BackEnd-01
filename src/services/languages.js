@@ -1,7 +1,20 @@
 const Language = require('~/models/languages')
 
-const getLanguages = async () => {
-  return await Language.find()
+const getLanguages = async (page = 1, limit = 6, search = '') => {
+  page = parseInt(page)
+  limit = parseInt(limit)
+  const skip = (page - 1) * limit
+
+  const filter = search ? { name: { $regex: `^${search}`, $options: 'i' } } : {}
+
+  const languages = await Language.find(filter).sort({ name: 1 }).skip(skip).limit(limit)
+
+  const totalCount = await Language.countDocuments(filter)
+
+  return {
+    languages,
+    hasMore: skip + limit < totalCount
+  }
 }
 
 const getLanguageById = async (id) => {
