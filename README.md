@@ -1,4 +1,4 @@
-<a href="https://softserve.academy/"><img src="https://github.com/ita-social-projects/SpaceToStudy-Client/blob/main/photo2.jpg" title="SoftServe IT Academy" alt="SoftServe IT Academy"></a>
+<a href="https://softserve.academy/"><img src="../main/photo2.jpg" title="SoftServe IT Academy" alt="SoftServe IT Academy"></a>
 
 # SpaceToStudy project
 
@@ -24,12 +24,6 @@ SpaceToStudy project is a platform where experts in various fields share their k
 - [Contributing](#contributing)
   - [git flow](#git-flow)
   - [issue flow](#git-flow)
-- [Teams](#teams)
-  - [Development team](#development-team)
-  - [DevOps team](#devops-team)
-  - [Designer team](#designer-team)
-  - [BA team](#ba-team)
-  - [QC team](#qc-team)
 - [FAQ](#faq)
 - [Support](#support)
 - [License](#license)
@@ -208,7 +202,6 @@ We have **main** , **develop** and **feature** branches.
 All **feature** branches must be merged into [develop](https://github.com/ita-social-projects/Space2Study-node-BackEnd-mvp/tree/develop) branch!!!
 Only the release should merge into the main branch!!!
 
-![Github flow](<https://wac-cdn.atlassian.com/dam/jcr:b5259cce-6245-49f2-b89b-9871f9ee3fa4/03%20(2).svg?cdnVersion=1312>)
 
 #### Step 1
 
@@ -246,36 +239,6 @@ Only the release should merge into the main branch!!!
 
 ---
 
-## Teams
-
-### Development team
-
-[![@Tolik170](https://avatars.githubusercontent.com/u/63456632?v=4)](https://github.com/Tolik170)
-[![@Mav-Ivan](https://avatars.githubusercontent.com/u/110425368?v=4)](https://github.com/Mav-Ivan)
-[![@dmtrth25](https://avatars.githubusercontent.com/u/56305508?v=4)](https://github.com/dmtrth25)
-[![@abalanovsky](https://avatars.githubusercontent.com/u/108689551?v=4)](https://github.com/abalanovsky)
-[![@OlyaKorchan](https://avatars.githubusercontent.com/u/17857767?v=4)](https://github.com/OlyaKorchan)
-[![@Marichka0406](https://avatars.githubusercontent.com/u/121502737?v=4)](https://github.com/Marichka0406)
-
-### DevOps team
-
-[![@abohatyrov](https://avatars.githubusercontent.com/u/52012169?v=4)](https://github.com/abohatyrov)
-[![@bdeputat](https://avatars.githubusercontent.com/u/36072762?v=4)](https://github.com/bdeputat)
-
-### Designer team
-
-[![@Nastia197](https://avatars.githubusercontent.com/u/76164279?v=4)](https://github.com/Nastia197)
-
-### BA team
-
-[![@IvannaSW](https://avatars.githubusercontent.com/u/24367409?v=4)](https://github.com/IvannaSW)
-
-### QC team
-
-[![@AntonOkun](https://avatars.githubusercontent.com/u/129941062?v=4)](https://github.com/AntonOkun)
-[![@Valent1n0o](https://avatars.githubusercontent.com/u/118978192?v=4)](https://github.com/Valent1n0o)
-
----
 
 ## FAQ
 
@@ -296,3 +259,4 @@ Only the release should merge into the main branch!!!
 [MIT](https://choosealicense.com/licenses/mit/)
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
