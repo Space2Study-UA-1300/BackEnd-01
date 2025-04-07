@@ -34,6 +34,10 @@ const { createNotFoundError } = require('~/utils/errorsHelper')
 const errorMiddleware = require('~/middlewares/error')
 
 const initialization = (app) => {
+  app.get('/', (req, res) => {
+    res.send('Backend is working!')
+  })
+
   app.use(express.json({ limit: '10mb' }))
   app.use(express.urlencoded({ extended: true }))
   app.use(cookieParser())
