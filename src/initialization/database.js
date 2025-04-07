@@ -21,6 +21,8 @@ const checkForLocalDB = async () => {
 }
 
 const databaseInitialization = async () => {
+  mongoose.set('strictQuery', false)
+
   await mongoose.connect(MONGODB_URL)
   await checkForLocalDB()
   logger.info('Connected to MongoDB.')
